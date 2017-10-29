@@ -1,4 +1,5 @@
 <?php
+//pruebas
       require_once("ez_sql_core.php");     
       require_once("ez_sql_mysql.php"); $conexion = new ezSQL_mysql();
 
