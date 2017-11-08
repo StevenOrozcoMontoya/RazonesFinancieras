@@ -1,27 +1,73 @@
 <?php
-//pruebas
-  
-  require_once("conexion.php"); $conexion = new Conexion();
- $primerPeriodoI = 0;
-                $primerPeriodoF =  0;
-                $segundoPeriodoI =  0;
-                $segundoPeriodoF = 0;
-    $publicacion =$conexion->consulta("SELECT * FROM periodos");
-    
+
+	/**********************************************************************
+	*  ezSQL initialisation for MS-SQL
+	*/
+
+	// Include ezSQL core
+	include_once "ez_sql_core.php";
+
+	// Include ezSQL database specific component
+	include_once "ez_sql_mssql.php";
+require "/var/lib/ezsql/mssql.php";
+	// Initialise database object and establish a connection
+	// at the same time - db_user / db_password / db_name / db_host
+
+
+
+	 $db_host = 'localhost';
+	 $db_name = 'gamabasis_demo';
+	 $db_user = 'root';
+	 $db_password = '';
+
+	 //example
+	 //$db_host = 'servername';   or $db_host = 'servername, portnumber'
+	 //$db_name = 'AdventureWorks';
+	 //$db_user = 'sa';
+	 //$db_password = 'password';
+
+
+	$db = new ezSQL_mssql($db_user, $db_password, $db_name, $db_host);
+	    $publicacion = $conexion->get_results("SELECT * FROM periodos");
 
       if (isset($publicacion)) {
-        while($row = $conexion->extraer_registro()){
-                $primerPeriodoI = $row[1];
-                $primerPeriodoF = $row[2];
-                $segundoPeriodoI = $row[3];
-                $segundoPeriodoF =$row[4];
-          
+          foreach ($publicacion as $value) {
+                $primerPeriodoI = $value->primerPeriodoI;
+                $primerPeriodoF = $value->primerPeriodoF;
+                $segundoPeriodoI = $value->segundoPeriodoI;
+                $segundoPeriodoF = $value->segundoPeriodoF;
+          }
       }
 
-  }
+	/**********************************************************************
+	*  ezSQL demo for MS-Sql database
+	// */
 
+	// // Demo of getting a single variable from the db
+	// // (and using abstracted function sysdate)
+	// $current_time = $db->get_var("SELECT " . $db->sysdate());
+	// print "ezSQL demo for mS-SQL database run @ $current_time";
 
-  ?>
+	// // Print out last query and results..
+	// $db->debug();
+
+	// // Get list of tables from current database..
+	// $my_tables = $db->get_results("select name from ".$db_name."..sysobjects where xtype = 'U'",ARRAY_N);
+
+	// // Print out last query and results..
+	// $db->debug();
+
+	// // Loop through each row of results..
+	// foreach ( $my_tables as $table )
+	// {
+	// 	// Get results of DESC table..
+	// 	$db->query("EXEC SP_COLUMNS '".$table[0]."'");
+
+	// 	// Print out last query and results..
+	// 	$db->debug();
+	// }
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,12 +94,12 @@
                 </div>
                 <div class="navi">
                     <ul>
-                        <li class="active"><a href="index.php"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Periodos</span></a></li>
-                        <li> <a id="Liqui"  ><i class="fa fa-money" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​liquidez</span></a></li>
-                        <li><a id="endeudamiento"><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. endeudamiento</span></a></li>
-                        <li><a id="rentabilidad"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. ​rentabilidad</span></a></li>
-                        <li><a id="​razon"><i class="fa fa-bank" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​cobertura </span></a></li>
-                       
+                        <li class="active"><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Periodos</span></a></li>
+                        <li><a href="liquidez.php"><i class="fa fa-money" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​liquidez</span></a></li>
+                        <li><a href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. endeudamiento</span></a></li>
+                        <li><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. ​rentabilidad</span></a></li>
+                        <li><a href="#"><i class="fa fa-bank" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​cobertura
+</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -71,11 +117,11 @@
                                 
                                 <div class="btn-group">
                                 Inicio
-                                 <input value="<?php if (isset($publicacion)) {echo $primerPeriodoI;}?>" type="date" name="primerPeriodoI" id="primerPeriodoI" onchange="handler();">
+                                 <input value="<?php if (isset($publicacion)) {echo $primerPeriodoI;}?>" type="date" name="primerPeriodoI" id="primerPeriodoI" onchange="cargarPeriodos()">
                                 </div>
                                 <div class="btn-group">
                                 Fin
-                                 <input value="<?php if (isset($publicacion)) {echo $primerPeriodoF;}?>" type="date" name="primerPeriodoF" id="primerPeriodoF" onchange="handler();">
+                                 <input value="<?php if (isset($publicacion)) {echo $primerPeriodoF;}?>" type="date" name="primerPeriodoF" id="primerPeriodoF" onchange="cargarPeriodos()">
                                 </div>
                             </div>
                         </div>
@@ -85,11 +131,11 @@
                                 <h2>Segundo periodo</h2>
                                 <div class="btn-group">
                                 Inicio
-                                 <input value="<?php if (isset($publicacion)) {echo $segundoPeriodoI;}?>" type="date" name="segundoPeriodoI" id="segundoPeriodoI" onchange="handler();">
+                                 <input value="<?php if (isset($publicacion)) {echo $segundoPeriodoI;}?>" type="date" name="segundoPeriodoI" id="segundoPeriodoI" onchange="cargarPeriodos()">
                                 </div>
                                 <div class="btn-group">
                                 Fin
-                                 <input value="<?php if (isset($publicacion)) {echo $segundoPeriodoF;}?>" type="date" name="segundoPeriodoF" id="segundoPeriodoF" onchange="handler();">
+                                 <input value="<?php if (isset($publicacion)) {echo $segundoPeriodoF;}?>" type="date" name="segundoPeriodoF" id="segundoPeriodoF" onchange="cargarPeriodos()">
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,7 @@
             <div class="col-md-10 col-sm-11 display-table-cell v-align">
 
                 <div class="user-dashboard">
-                    <h1>Razones de liquidez</h1>
+                    <h1>Razones​​ de​​ rentabilidad</h1>
                     <div class="row">
                     <div class="col-md-7 col-sm-7 col-xs-12 sales">
                          <div class="span12">
@@ -61,58 +61,51 @@
                         echo" Hasta "; echo $_GET['segundoPeriodoF'] ;}?> </td>
                     </tr>
                     <tr>
-                        <td>Capital neto de trabajo</td>
+                        <td>Margen​​ bruto​​ de​​ utilidad.</td>
 
                         <td><?php   
-                         
-
-                       // $resultado=  $conexion->multiquery ("call Capital_neto_de_trabajo('2015-01-01', '2015-12-31',@valor); SELECT @valor;");
-                        
+                   
 $link = $conexion->conectar_base_datos();
 
-/* comprobar conexión */
-if (mysqli_connect_errno()) {
-    printf("Conexión fallida: %s\n", mysqli_connect_error());
-    exit();
-}
 
-$query  = "call Capital_neto_de_trabajo('".$_GET['primerPeriodoI']."', '".$_GET['primerPeriodoF']."',@valor);";
+
+$query  = "call Margen_bruto_de_utilidad('".$_GET['primerPeriodoI']."', '".$_GET['primerPeriodoF']."',@valor);";
 $query .= "SELECT @valor;";
  
  echo  $conexion->mutiquery($query);
 
                  ?></td>
                         <td><?php 
-                        $query  = "call Capital_neto_de_trabajo('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Margen_bruto_de_utilidad('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
 $query .= "SELECT @valor;";
  echo  $conexion->mutiquery($query);
                          ?></td>
                     </tr>
                     <tr>
-                        <td>Índice de solvencia</td>
+                        <td>Margen​​ de​​ utilidades​​ operacionales.</td>
                         <td><?php 
-                        $query  = "call indice_solvencia('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query  = "call Margen_de_utilidades_operacionales('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?></td>
                         <td><?php 
-                        $query  = "call indice_solvencia('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Margen_de_utilidades_operacionales('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?></td>
                     </tr>
                     <tr>
-                        <td>Prueba ácida</td>
+                        <td>Margen​​ neto​​ de​​ utilidades</td>
                         <td>
                             <?php 
-                        $query  = "call prueba_acida('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query  = "call Margen_neto_de_utilidades('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
                         </td>
                         <td>
                             <?php 
-                        $query  = "call prueba_acida('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Margen_neto_de_utilidades('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
@@ -120,17 +113,17 @@ $query .= "SELECT @valor;";
                         </td>
                     </tr>
                     <tr>
-                        <td>Rotación de inventarios</td>
+                        <td>Rotación​​ de​​ activos</td>
                           <td>
                             <?php 
-                        $query  = "call rotacion_inventario('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query  = "call Rotacion_de_activos('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
                         </td>
                         <td>
                             <?php 
-                        $query  = "call rotacion_inventario('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Rotacion_de_activos('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
@@ -138,17 +131,17 @@ $query .= "SELECT @valor;";
                         </td>
                     </tr>
                     <tr>
-                        <td>Rotación de cartera</td>
+                        <td>Rendimiento​​ de​​ la​​ inversión</td>
                        <td>
                             <?php 
-                        $query  = "call rotacion_cartera('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query  = "call Rendimiento_de_la_inversión('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
                         </td>
                         <td>
                             <?php 
-                        $query  = "call rotacion_cartera('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Rendimiento_de_la_inversión('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
@@ -156,22 +149,39 @@ $query .= "SELECT @valor;";
                         </td>
                     </tr>
                     <tr>
-                        <td>Rotación de cuentas por pagar</td>
+                        <td>Rendimiento​​ del​​ capital​​ común</td>
                     <td>
                             <?php 
-                        $query  = "call Rotacion_de_cuentas_por_pagar('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query  = "call Rendimiento_del_capital_comun('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
                         </td>
                         <td>
                             <?php 
-                        $query  = "call Rotacion_de_cuentas_por_pagar('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Rendimiento_del_capital_comun('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?>
 
                         </td>
+                               <td>Utilidad​​ por​​ acción</td>
+                    <td>
+                            <?php 
+                        $query  = "call Utilidad_por_accion('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query .= "SELECT @valor;";
+                        echo  $conexion->mutiquery($query);
+                         ?>
+                        </td>
+                        <td>
+                            <?php 
+                        $query  = "call Utilidad_por_accion('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query .= "SELECT @valor;";
+                        echo  $conexion->mutiquery($query);
+                         ?>
+
+                        </td>
+                            
                     </tr>
                 </tbody>
             </table>
