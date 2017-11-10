@@ -4,7 +4,7 @@
 
                         $("#​razon").click(function() {
                            
-       document.getElementById("​razon").href="razon.php"+"?primerPeriodoI="+
+       document.getElementById("​razon").href="cobertura.php"+"?primerPeriodoI="+
        document.getElementById('primerPeriodoI').value+"&primerPeriodoF="+ 
        document.getElementById('primerPeriodoF').value+"&segundoPeriodoI="+ 
        document.getElementById('segundoPeriodoI').value+"&segundoPeriodoF="+ 

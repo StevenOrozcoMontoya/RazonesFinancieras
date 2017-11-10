@@ -1,5 +1,12 @@
 <?php 
  require_once("conexion.php"); $conexion = new Conexion();
+   session_start();
+  if (isset($_GET['primerPeriodoI']) and  isset($_GET['primerPeriodoF'])) {
+           $_SESSION['primerPeriodoI']=$_GET['primerPeriodoI'];
+  $_SESSION['primerPeriodoF']=$_GET['primerPeriodoF'];    
+     $_SESSION['segundoPeriodoI']=$_GET['segundoPeriodoI'];
+   $_SESSION['segundoPeriodoF']=$_GET['segundoPeriodoF'];    
+  }
  ?>
 <!DOCTYPE html>
 <html>
@@ -27,10 +34,10 @@
                 </div>
                 <div class="navi">
                     <ul>
-                           <li class="active"><a href="index.php"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Periodos</span></a></li>
-                        <li> <a id="Liqui"  ><i class="fa fa-money" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​liquidez</span></a></li>
-                        <li><a id="endeudamiento"><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. endeudamiento</span></a></li>
-                        <li><a id="rentabilidad"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. ​rentabilidad</span></a></li>
+                          <li class="active"><a href="index.php"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Periodos</span></a></li>
+                        <li> <a href="liquidez.php" ><i class="fa fa-money" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​liquidez</span></a></li>
+                        <li><a href="endudamiento.php"><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. endeudamiento</span></a></li>
+                        <li><a href ="rentabilidad.php"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. ​rentabilidad</span></a></li>
                         <li><a id="​cobertura"><i class="fa fa-bank" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​cobertura
 </span></a></li>
                     </ul>
@@ -55,10 +62,10 @@
                 <tbody>
                      <tr>
                         <td>Periodo</td>
-                        <td>Del <?php if (isset($_GET['primerPeriodoI']) and  isset($_GET['primerPeriodoF'])) {echo $_GET['primerPeriodoI'] ;
-                        echo" Hasta "; echo $_GET['primerPeriodoF'] ;}?>  </td>
-                        <td>Del <?php if (isset($_GET['segundoPeriodoI']) and  isset($_GET['segundoPeriodoF'])) {echo $_GET['segundoPeriodoI'] ;
-                        echo" Hasta "; echo $_GET['segundoPeriodoF'] ;}?> </td>
+                        <td>Del <?php if (isset($_SESSION['primerPeriodoI']) and  isset($_SESSION['primerPeriodoF'])) {echo $_SESSION['primerPeriodoI'] ;
+                        echo" Hasta "; echo $_SESSION['primerPeriodoF'] ;}?>  </td>
+                        <td>Del <?php if (isset($_SESSION['segundoPeriodoI']) and  isset($_SESSION['segundoPeriodoF'])) {echo $_SESSION['segundoPeriodoI'] ;
+                        echo" Hasta "; echo $_SESSION['segundoPeriodoF'] ;}?> </td>
                     </tr>
                     <tr>
                         <td>Cobertura​​ total​​ del​​ pasivo</td>
@@ -74,14 +81,14 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$query  = "call Cobertura_total_del_pasivo('".$_GET['primerPeriodoI']."', '".$_GET['primerPeriodoF']."',@valor);";
+$query  = "call Cobertura_total_del_pasivo('".$_SESSION['primerPeriodoI']."', '".$_SESSION['primerPeriodoF']."',@valor);";
 $query .= "SELECT @valor;";
  
  echo  $conexion->mutiquery($query);
 
                  ?></td>
                         <td><?php 
-                        $query  = "call Cobertura_total_del_pasivo('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Cobertura_total_del_pasivo('". $_SESSION['segundoPeriodoI'] ."', '". $_SESSION['segundoPeriodoF'] ."',@valor);";
 $query .= "SELECT @valor;";
  echo  $conexion->mutiquery($query);
                          ?></td>
@@ -89,12 +96,12 @@ $query .= "SELECT @valor;";
                     <tr>
                         <td>Razón​​ de​​ cobertura​​ total</td>
                         <td><?php 
-                        $query  = "call Razon_de_cobertura_total('". $_GET['primerPeriodoI'] ."', '". $_GET['primerPeriodoF'] ."',@valor);";
+                        $query  = "call Razon_de_cobertura_total('". $_SESSION['primerPeriodoI'] ."', '". $_SESSION['primerPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?></td>
                         <td><?php 
-                        $query  = "call Razon_de_cobertura_total('". $_GET['segundoPeriodoI'] ."', '". $_GET['segundoPeriodoF'] ."',@valor);";
+                        $query  = "call Razon_de_cobertura_total('". $_SESSION['segundoPeriodoI'] ."', '". $_SESSION['segundoPeriodoF'] ."',@valor);";
                         $query .= "SELECT @valor;";
                         echo  $conexion->mutiquery($query);
                          ?></td>
