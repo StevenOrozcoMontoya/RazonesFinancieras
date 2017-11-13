@@ -6,7 +6,7 @@
   $_SESSION['primerPeriodoF']=$_GET['primerPeriodoF'];    
      $_SESSION['segundoPeriodoI']=$_GET['segundoPeriodoI'];
    $_SESSION['segundoPeriodoF']=$_GET['segundoPeriodoF'];    
-  }
+  } 
  ?>
 <!DOCTYPE html>
 <html>
@@ -38,8 +38,8 @@
                         <li class="" style="cursor: pointer;"> <a href="liquidez.php" id="Liqui"  ><i class="fa fa-money" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​liquidez</span></a></li>
                          <li class="" style="cursor: pointer;"><a href="endudamiento.php" id="endeudamiento"><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. endeudamiento</span></a></li>
                         <li class="" style="cursor: pointer;"><a href="rentabilidad.php" id="rentabilidad"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">R. ​rentabilidad</span></a></li>
-                        <li class="active" style="cursor: pointer;"><a href="cobertura.php" id="​razon"><i class="fa fa-bank" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​cobertura </span></a></li>
-                        <li style="cursor: pointer;"><a href="acercade.php" id="acercade"><i class="fa fa-question" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Acerca de</span></a></li>
+                        <li style="cursor: pointer;"><a href="cobertura.php" id="​razon"><i class="fa fa-bank" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Razones​ ​de​ ​cobertura </span></a></li>
+                        <li class="active" style="cursor: pointer;"><a href="acercade.php" id="acercade"><i class="fa fa-question" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Acerca de</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -47,60 +47,34 @@
             <div class="col-md-10 col-sm-11 display-table-cell v-align">
 
                 <div class="user-dashboard">
-                    <h1>Razones​​ de​​ cobertura</h1>
+                    <h1>Acerca de</h1>
                     <div class="row">
                     <div class="col-md-7 col-sm-7 col-xs-12 sales">
                          <div class="span12">
-            <table class="table table-condensed table-hover">
+           Este es proyecto del curso Fundamentos Web desarrollado por los siguientes estudiantes de la Universidad Nacional de Costa Rica:<br><br>
+           <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
-                        <th> </th>
-                        <th>Primer Periodo</th>
-                        <th>Segundo Periodo</th>
+                        <th>Yoel Cerdas Villalobos</th>
+                        <th>Steven Orozco Montoya</th>
                     </tr>
                 </thead>
                 <tbody>
-                     <tr>
-                        <td>Periodo</td>
-                        <td>Del <?php if (isset($_SESSION['primerPeriodoI']) and  isset($_SESSION['primerPeriodoF'])) {echo $_SESSION['primerPeriodoI'] ;
-                        echo" Hasta "; echo $_SESSION['primerPeriodoF'] ;}?>  </td>
-                        <td>Del <?php if (isset($_SESSION['segundoPeriodoI']) and  isset($_SESSION['segundoPeriodoF'])) {echo $_SESSION['segundoPeriodoI'] ;
-                        echo" Hasta "; echo $_SESSION['segundoPeriodoF'] ;}?> </td>
-                    </tr>
-                    <tr>
-                        <td>Cobertura​​ total​​ del​​ pasivo</td>
-
-                        <td><?php  
-$query  = "call Cobertura_total_del_pasivo('".$_SESSION['primerPeriodoI']."', '".$_SESSION['primerPeriodoF']."',@valor);";
-$query .= "SELECT @valor;";
- 
- echo  $conexion->mutiquery($query);
-
-                 ?></td>
-                        <td><?php 
-                        $query  = "call Cobertura_total_del_pasivo('". $_SESSION['segundoPeriodoI'] ."', '". $_SESSION['segundoPeriodoF'] ."',@valor);";
-$query .= "SELECT @valor;";
- echo  $conexion->mutiquery($query);
-                         ?></td>
-                    </tr>
-                    <tr>
-                        <td>Razón​​ de​​ cobertura​​ total</td>
-                        <td><?php 
-                        $query  = "call Razon_de_cobertura_total('". $_SESSION['primerPeriodoI'] ."', '". $_SESSION['primerPeriodoF'] ."',@valor);";
-                        $query .= "SELECT @valor;";
-                        echo  $conexion->mutiquery($query);
-                         ?></td>
-                        <td><?php 
-                        $query  = "call Razon_de_cobertura_total('". $_SESSION['segundoPeriodoI'] ."', '". $_SESSION['segundoPeriodoF'] ."',@valor);";
-                        $query .= "SELECT @valor;";
-                        echo  $conexion->mutiquery($query);
-                         ?></td>
-                    </tr>
-                    <tr>
-                        
-                    </tr>
-                </tbody>
-            </table>
+                	<tr>
+                		<td><li style="list-style-type: circle;">Programacion de consultas en la base de datos (Procedimientos almacenados)</li></td>
+                		<td><li style="list-style-type: circle;">Diseño y desarrollo de la estructura del proyecto</li></td>
+                	</tr>
+                	<tr>
+                		<td><li style="list-style-type: circle;">Análisis de la lógica de las fórmulas para las razones financieras</li></td>
+                		<td><li style="list-style-type: circle;">Diseño y desarrollo de la interfaz del proyecto</li></td>
+                	</tr>
+                	<tr>
+                		<td><li style="list-style-type: circle;">Llamado de procedimientos</li></td>
+                		<td><li style="list-style-type: circle;">Desarrollo de logística para la implementación de los períodos</li></td>
+                	</tr>
+                </tbody></table>
+                <br><br>
+                IMPORTANTE: Para el correcto funcionamiento de este proyecto se debe actualizar la base de datos con dichos procedimientos almacenados, adjuntada en el siguiente enlace: <a style="color: blue" href="gamabasis_demo.sql">gamabasis_demo.sql</a>
         </div></div>
                     </div>
                 </div>
