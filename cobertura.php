@@ -70,17 +70,7 @@
                     <tr>
                         <td>Cobertura​​ total​​ del​​ pasivo</td>
 
-                        <td><?php   
-                         
-                        
-$link = $conexion->conectar_base_datos();
-
-/* comprobar conexión */
-if (mysqli_connect_errno()) {
-    printf("Conexión fallida: %s\n", mysqli_connect_error());
-    exit();
-}
-
+                        <td><?php  
 $query  = "call Cobertura_total_del_pasivo('".$_SESSION['primerPeriodoI']."', '".$_SESSION['primerPeriodoF']."',@valor);";
 $query .= "SELECT @valor;";
  

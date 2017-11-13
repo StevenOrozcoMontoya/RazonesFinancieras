@@ -75,11 +75,7 @@
                         
 $link = $conexion->conectar_base_datos();
 
-/* comprobar conexión */
-if (mysqli_connect_errno()) {
-    printf("Conexión fallida: %s\n", mysqli_connect_error());
-    exit();
-}
+
 
 $query  = "call Razon_endeudamiento('".$_SESSION['primerPeriodoI']."', '".$_SESSION['primerPeriodoF']."',@valor);";
 $query .= "SELECT @valor;";

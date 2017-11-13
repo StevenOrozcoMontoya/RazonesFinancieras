@@ -70,12 +70,7 @@
                         <td>Margen​​ bruto​​ de​​ utilidad.</td>
 
                         <td><?php   
-                   
-$link = $conexion->conectar_base_datos();
-
-
-
-$query  = "call Margen_bruto_de_utilidad('".$_SESSION['primerPeriodoI']."', '".$_SESSION['primerPeriodoF']."',@valor);";
+= "call Margen_bruto_de_utilidad('".$_SESSION['primerPeriodoI']."', '".$_SESSION['primerPeriodoF']."',@valor);";
 $query .= "SELECT @valor;";
  
  echo  $conexion->mutiquery($query);

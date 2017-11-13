@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2017 a las 03:29:48
+-- Tiempo de generación: 13-11-2017 a las 01:16:11
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 7.0.3
 
@@ -433,13 +433,14 @@ set @total = (@costo_ventas - @ventas - @gastos_financieros- @impuesto - @gastos
 select  @total      as costo_ventas into valor;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Utilidad_por_accion` (IN `inicio` DATETIME, IN `final` DATETIME, OUT `valor` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Utilidad_por_accion` (IN `inicio` DATETIME, IN `final` DATETIME, OUT `valor` DOUBLE)  BEGIN
 set @Utilidad_neta=0;
 CALL Utilidad_neta(inicio,final,@Utilidad_neta);
 set @acciones=0;
-CALL acciones(inicio,final,@acciones);
+CALL acciones(@acciones);
+set @total =@Utilidad_neta / @acciones ;
 
-select cast(@Utilidad_neta as decimal)/ cast(@acciones as decimal ) as acciones into valor;
+select  @total as acciones into valor;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ventas` (IN `inicio` DATETIME, IN `final` DATETIME, OUT `valor` DOUBLE)  BEGIN
